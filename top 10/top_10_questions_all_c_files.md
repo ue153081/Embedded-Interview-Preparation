@@ -104,6 +104,8 @@ This file contains the full content of every .c file under `self prepared notes/
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdio.h>
+#include <string.h>
 
 
 /*****************************************************************************************
@@ -169,6 +171,13 @@ typedef struct
     volatile uint32_t rx_overflow;
 
 } UART_Driver;
+
+/* Fake UART peripheral for simulation */
+UART_Regs UART1;
+
+/* Buffer sizes */
+#define RX_BUFFER_SIZE 64
+#define TX_BUFFER_SIZE 64
 
 
 
@@ -357,6 +366,55 @@ size_t uart_write(UART_Driver *u, const uint8_t *data, size_t len)
     uart_tx_isr(u);
 
     return count;
+}
+
+
+int main(void)
+{
+    UART_Driver uart;
+
+    /* Allocate buffers */
+    static uint8_t rx_buffer[RX_BUFFER_SIZE];
+    static uint8_t tx_buffer[TX_BUFFER_SIZE];
+
+    /* Initialize UART driver */
+    uart_init(&uart,
+              &UART1,
+              rx_buffer,
+              RX_BUFFER_SIZE,
+              tx_buffer,
+              TX_BUFFER_SIZE);
+
+    /***********************************************************
+     * TRANSMIT EXAMPLE
+     ***********************************************************/
+    const char *msg = "Hello UART Interrupt Driver!\n";
+
+    uart_write(&uart,
+               (const uint8_t *)msg,
+               strlen(msg));
+
+    /***********************************************************
+     * MAIN LOOP
+     ***********************************************************/
+    uint8_t rx_data[32];
+
+    while (1)
+    {
+        /* Simulate interrupt being triggered */
+        uart_irq_handler(&uart);
+
+        /* Read received data */
+        size_t n = uart_read(&uart, rx_data, sizeof(rx_data));
+
+        if (n > 0)
+        {
+            /* Echo received data back */
+            uart_write(&uart, rx_data, n);
+        }
+    }
+
+    return 0;
 }
 
 
