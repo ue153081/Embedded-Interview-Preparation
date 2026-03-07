@@ -5,7 +5,6 @@ This file contains the full content of every .c file under `self prepared notes/
 ## 01_uart_driver_interrupt_full.c
 
 ```c
-
 /*****************************************************************************************
  *
  *  UART DRIVER IMPLEMENTATION (INTERRUPT DRIVEN) - INTERVIEW EDITION
@@ -169,16 +168,17 @@ typedef struct
     RingBuffer tx;
 
     volatile uint32_t rx_overflow;
+    volatile uint8_t tx_active;
 
 } UART_Driver;
 
 /* Fake UART peripheral for simulation */
 UART_Regs UART1;
 
+
 /* Buffer sizes */
 #define RX_BUFFER_SIZE 64
 #define TX_BUFFER_SIZE 64
-
 
 
 /*****************************************************************************************
@@ -228,6 +228,7 @@ void uart_init(UART_Driver *u,
     ring_init(&u->tx, tx_buf, tx_size);
 
     u->rx_overflow = 0;
+    u->tx_active = 0;
 }
 
 
@@ -291,12 +292,18 @@ void uart_tx_isr(UART_Driver *u)
     UART_Regs *regs = u->regs;
     RingBuffer *rb = &u->tx;
 
-    while ((regs->SR & UART_SR_TXE) && (rb->tail != rb->head))
-    {
-        regs->DR = rb->buffer[rb->tail];
+    if (!(regs->SR & UART_SR_TXE))
+        return;
 
-        rb->tail = next_index(rb->tail, rb->capacity);
+    if (rb->tail == rb->head)
+    {
+        u->tx_active = 0;
+        return;
     }
+
+    regs->DR = rb->buffer[rb->tail];
+
+    rb->tail = next_index(rb->tail, rb->capacity);
 }
 
 
@@ -309,8 +316,17 @@ void uart_tx_isr(UART_Driver *u)
 
 void uart_irq_handler(UART_Driver *u)
 {
-    uart_rx_isr(u);
-    uart_tx_isr(u);
+    UART_Regs *regs = u->regs;
+
+    if (regs->SR & UART_SR_RXNE)
+    {
+        uart_rx_isr(u);
+    }
+
+    if (regs->SR & UART_SR_TXE)
+    {
+        uart_tx_isr(u);
+    }
 }
 
 
@@ -362,8 +378,11 @@ size_t uart_write(UART_Driver *u, const uint8_t *data, size_t len)
         rb->head = next;
     }
 
-    /* Kickstart TX transmission */
-    uart_tx_isr(u);
+    if ((count > 0u) && (!u->tx_active))
+    {
+        u->tx_active = 1u;
+        uart_tx_isr(u);
+    }
 
     return count;
 }
@@ -385,18 +404,22 @@ int main(void)
               tx_buffer,
               TX_BUFFER_SIZE);
 
+
     /***********************************************************
      * TRANSMIT EXAMPLE
      ***********************************************************/
+
     const char *msg = "Hello UART Interrupt Driver!\n";
 
     uart_write(&uart,
                (const uint8_t *)msg,
                strlen(msg));
 
+
     /***********************************************************
      * MAIN LOOP
      ***********************************************************/
+
     uint8_t rx_data[32];
 
     while (1)
