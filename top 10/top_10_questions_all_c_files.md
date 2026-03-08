@@ -447,22 +447,26 @@ int main(void)
  *
  * 1. Why is volatile required for head and tail?
  *
- *    Because they are accessed by both ISR and application context.
+ *    ISR and application access these fields asynchronously.
+ *    volatile forces memory reads/writes so stale cached values are not used.
  *
  *
  * 2. Why use a circular buffer instead of a normal queue?
  *
- *    Circular buffers avoid expensive memory shifts and provide O(1) operations.
+ *    Circular buffers avoid data shifting and keep enqueue/dequeue O(1).
+ *    This gives deterministic behavior for embedded systems.
  *
  *
  * 3. What happens if the application reads slower than UART receives?
  *
- *    Buffer becomes full → overflow counter increments.
+ *    Buffer eventually reaches next(head) == tail (full condition).
+ *    A common policy is dropping new bytes and incrementing overflow counters.
  *
  *
  * 4. How would you support very high UART speeds (e.g. 5 Mbps)?
  *
- *    Use DMA instead of interrupt-per-byte reception.
+ *    Interrupt-per-byte handling can reach around 500k IRQ/s at 5 Mbps.
+ *    DMA moves bytes to RAM directly, so CPU handles chunk-level events.
  *
  *
  * 5. How would this change in an RTOS?
@@ -771,13 +775,28 @@ void uart_idle_isr(UART_DMA_Driver *drv)
  *
  * 1. Why DMA instead of interrupts for high speed UART?
  *
+ *    Interrupt-per-byte RX can hit very high IRQ rates (for example ~300k/s at 3 Mbps).
+ *    DMA streams UART data to memory and CPU handles only boundary/idle events.
+ *
  * 2. How do you detect packet boundaries?
+ *
+ *    Use UART IDLE-line detection: one frame of silence raises IDLE interrupt.
+ *    That idle event is used as a packet boundary trigger.
  *
  * 3. What happens if DMA overwrites unread data?
  *
+ *    If the write pointer catches the read pointer, unread bytes are overwritten.
+ *    Mitigate with larger buffers, faster processing, or RTS/CTS flow control.
+ *
  * 4. How do you avoid CPU cache issues with DMA?
  *
+ *    DMA writes RAM while CPU may read stale cache lines.
+ *    Invalidate/clean cache around DMA buffers or place buffers in non-cacheable memory.
+ *
  * 5. How would you implement zero-copy packet processing?
+ *
+ *    Process packets directly from the DMA ring buffer without copy-out.
+ *    If data wraps the buffer end, process in two segments, then advance read_pos.
  *
  *****************************************************************************************/
 
@@ -1096,13 +1115,25 @@ uint32_t rb_free_space(RingBuffer *rb)
  *
  * 1. Why is this queue lock‑free?
  *
+ *    In SPSC design, producer owns head and consumer owns tail.
+ *    Each shared index has a single writer, so lock ownership is simple.
+ *
  * 2. Why must head and tail be volatile?
  *
+ *    They are shared between asynchronous contexts.
+ *    volatile prevents compiler-cached stale reads.
+ *
  * 3. What happens if multiple producers push data?
+ *
+ *    Producers can race on head and corrupt queue state.
+ *    Use atomics/CAS, mutexes, or per-producer queues.
  *
  * 4. How would you modify this queue for multi‑producer support?
  *
  * 5. Why is one slot intentionally unused in ring buffers?
+ *
+ *    One slot is left free so states are unambiguous:
+ *    head == tail is empty, next(head) == tail is full.
  *
  *      (distinguish full vs empty)
  *
@@ -1402,13 +1433,22 @@ void log_flush(Logger *log,
  *
  * 1. Why should logging never block?
  *
+ *    Blocking logs add latency and can break real-time behavior.
+ *    Prefer enqueue-now and asynchronous flush.
+ *
  * 2. What happens if log buffer fills?
+ *
+ *    Typical choices are dropping new logs or overwriting oldest logs.
+ *    Track dropped-message counters for visibility.
  *
  * 3. How would you support multi-core logging?
  *
  * 4. How would you compress logs for telemetry?
  *
  * 5. Why avoid printf in ISR?
+ *
+ *    printf is expensive (formatting, possible locks, blocking I/O).
+ *    ISR code should stay short to minimize interrupt latency.
  *
  *****************************************************************************************/
 
@@ -1656,9 +1696,17 @@ size_t pool_free_count(MemPool *pool)
  *
  * 1. Why are memory pools preferred in embedded drivers?
  *
+ *    Pools provide deterministic O(1) allocate/free behavior.
+ *    Unlike malloc, they avoid fragmentation-driven timing variability.
+ *
  * 2. What problem does malloc() introduce?
  *
+ *    malloc can introduce fragmentation and unpredictable allocation latency.
+ *
  * 3. Why does this allocator avoid fragmentation?
+ *
+ *    All blocks are fixed-size and interchangeable.
+ *    External fragmentation does not accumulate.
  *
  * 4. How would you support variable-sized allocations?
  *
@@ -1936,9 +1984,15 @@ void heap_free(Heap *heap, void *ptr)
  *
  * 1. What is external fragmentation?
  *
+ *    Free memory is split into non-contiguous chunks.
+ *    Total free bytes may be enough, but no single block is large enough.
+ *
  * 2. Difference between first-fit, best-fit, and worst-fit?
  *
  * 3. Why is heap allocation usually avoided in hard real-time systems?
+ *
+ *    Allocation time depends on free-list traversal/coalescing.
+ *    That makes worst-case timing hard to guarantee.
  *
  * 4. How would you implement thread-safe malloc?
  *
@@ -2210,9 +2264,15 @@ void spi_transfer_blocking(SPI_Driver *drv,
  *
  * 1. What is full-duplex SPI communication?
  *
+ *    SPI shifts one bit out and one bit in on each clock cycle.
+ *    Transmit and receive happen simultaneously.
+ *
  * 2. What are CPOL and CPHA?
  *
  * 3. When should DMA be used with SPI?
+ *
+ *    Use DMA for large transfers such as flash reads, display frames, or network payloads.
+ *    This reduces CPU overhead.
  *
  * 4. Why might SPI transfers stall?
  *
@@ -2514,7 +2574,13 @@ void i2c_bus_recovery(void (*toggle_scl)(void))
  *
  * 3. Why are pull-up resistors required on SDA/SCL?
  *
+ *    I2C lines are open-drain, so devices actively pull low only.
+ *    Pull-up resistors restore logic-high on SDA/SCL.
+ *
  * 4. What causes I2C bus lock?
+ *
+ *    A stuck device can hold SDA low after fault/incomplete transaction.
+ *    Bus recovery clocks SCL manually to release the slave.
  *
  * 5. Why might SPI be preferred over I2C?
  *
@@ -2745,7 +2811,13 @@ void timer_tick_isr(TimerScheduler *sched)
  *
  * 1. Why implement software timers instead of many hardware timers?
  *
+ *    Hardware timers are limited resources.
+ *    Software timers multiplex many deadlines on a shared hardware tick.
+ *
  * 2. What is timer jitter?
+ *
+ *    Jitter is the difference between scheduled expiry and actual callback execution.
+ *    Common causes are interrupt latency and scheduler delays.
  *
  * 3. What happens if callback execution time is long?
  *
@@ -3045,6 +3117,9 @@ Device uart0 =
  *
  * 1. Why use a driver abstraction layer?
  *
+ *    It separates application logic from hardware-specific register details.
+ *    This improves portability, maintainability, and testability.
+ *
  * 2. How does this design improve portability?
  *
  * 3. How would you support multiple UART devices?
@@ -3057,4 +3132,3 @@ Device uart0 =
 
 
 ```
-
