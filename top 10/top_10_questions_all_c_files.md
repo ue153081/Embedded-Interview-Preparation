@@ -781,6 +781,47 @@ void uart_idle_isr(UART_DMA_Driver *drv)
  *
  *****************************************************************************************/
 
+
+/*****************************************************************************************
+ * DMA CONFIGURATION AND START
+ *
+ * This function performs the actual DMA hardware configuration for UART RX.
+ * It links UART DR register to the DMA peripheral address and enables circular mode.
+ *****************************************************************************************/
+
+#define DMA_CR_EN            (1u << 0)
+#define DMA_CR_CIRC          (1u << 8)
+#define DMA_CR_MINC          (1u << 10)
+#define DMA_CR_DIR_P2M       (0u << 6)   /* Peripheral-to-memory */
+
+/*****************************************************************************************
+ * START UART DMA RECEPTION
+ *****************************************************************************************/
+
+void uart_dma_start(UART_DMA_Driver *drv)
+{
+    /* Configure peripheral address (UART data register) */
+    drv->dma->PAR  = (uint32_t)&drv->uart->DR;
+
+    /* Configure memory address (RX buffer) */
+    drv->dma->M0AR = (uint32_t)drv->rx.buffer;
+
+    /* Number of bytes to receive */
+    drv->dma->NDTR = drv->rx.size;
+
+    /* Configure DMA control register
+       - Peripheral to memory
+       - Memory increment enabled
+       - Circular mode enabled
+    */
+    drv->dma->CR =
+        DMA_CR_DIR_P2M |
+        DMA_CR_MINC   |
+        DMA_CR_CIRC;
+
+    /* Enable DMA stream */
+    drv->dma->CR |= DMA_CR_EN;
+}
 ```
 
 ## 03_ring_buffer_lockfree_full.c
