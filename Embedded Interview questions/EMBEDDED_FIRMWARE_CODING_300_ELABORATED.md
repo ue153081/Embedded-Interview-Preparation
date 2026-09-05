@@ -15,6 +15,9 @@
 
 ---
 
+> **Split by category:** use [`coding_rounds/README.md`](./coding_rounds/README.md) for per-topic pages (recommended).
+> This file remains the single-page dump of all 300 questions.
+
 ## Questions C001–C300
 
 ### C001 — container_of / offsetof
