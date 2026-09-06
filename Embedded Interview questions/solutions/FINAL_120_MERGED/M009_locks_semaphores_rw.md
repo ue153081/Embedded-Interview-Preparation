@@ -1,0 +1,196 @@
+# M009 — Locks, semaphores & reader–writer
+
+**Type:** Coding (C)  
+**Merged from:** Q037, Q038, Q039, Q040, Q041  
+**Companies:** Google · Apple · NVIDIA · Meta · Amazon · Tesla  
+
+**Question:** Spinlock, ticket lock, mutex, counting/binary semaphore (ISR-safe give), reader-writer lock.
+
+---
+
+## Sub-variant coverage
+
+| Original Q | Sub-variant |
+|---|---|
+| Q037 | Starvation |
+| Q038 | ISR vs task legality |
+| Q039 | Priority inversion context |
+| Q040 | See merged solution |
+| Q041 | See merged solution |
+
+---
+
+## Step 0 — Clarifying questions (say these out loud)
+
+- **Candidate:** Single-core UP or SMP?
+- **Candidate:** Can this lock be taken from ISR?
+
+## Step 1 — Approach
+
+Build Locks, semaphores & reader–writer in layers: invariants first, happy path, then edge cases and concurrency.
+
+- Restate API signatures and invariants aloud before coding.
+- Implement core logic with straightforward loops; optimize after tests pass.
+- Document ownership, error codes, and ISR vs task context.
+
+## Step 2 — Data structures / invariants
+
+1. Structs/enums matching API — invariants in comments.
+2. Platform hooks (`irq_save`, `now_ms`) isolated for host test fakes.
+
+## Step 3 — Complete solution (compilable C)
+
+```c
+#include <stdatomic.h>
+#include <stdint.h>
+typedef struct {
+    atomic_flag f;
+}
+spinlock_t;
+void spin_lock(spinlock_t *l) {
+    while (atomic_flag_test_and_set_explicit(&l->f, memory_order_acquire)) {
+        /* spin — keep critical sections tiny; use irqsave variant in ISR contexts */
+    }
+}
+void spin_unlock(spinlock_t *l) {
+    atomic_flag_clear_explicit(&l->f, memory_order_release);
+}
+/* IRQ-safe variant (platform stubs) */
+typedef uint32_t irq_state_t;
+static irq_state_t irq_save(void) {
+    return 0;
+    /* primask save on Cortex-M */
+}
+static void irq_restore(irq_state_t s) {
+    (void)s;
+}
+void spin_lock_irqsave(spinlock_t *l, irq_state_t *st) {
+    *st = irq_save();
+    spin_lock(l);
+}
+void spin_unlock_irqrestore(spinlock_t *l, irq_state_t st) {
+    spin_unlock(l);
+    irq_restore(st);
+}
+/* --- next section --- */
+#include <stdint.h>
+#include <stddef.h>
+#include <stdatomic.h>
+typedef struct {
+    _Atomic unsigned next, now;
+}
+ticket_lock_t;
+void ticket_lock(ticket_lock_t *l) {
+    unsigned my=atomic_fetch_add(&l->next,1);
+    while(atomic_load(&l->now)!=my) {
+    }
+}
+void ticket_unlock(ticket_lock_t *l) {
+    atomic_fetch_add(&l->now,1);
+}
+/* --- next section --- */
+#include <stdint.h>
+#include <stddef.h>
+typedef struct {
+    int locked, owner;
+}
+mutex_t;
+void mutex_lock(mutex_t *m) {
+    while(__sync_lock_test_and_set(&m->locked,1)) {
+    }
+    m->owner=1;
+}
+void mutex_unlock(mutex_t *m) {
+    m->owner=0;
+    __sync_lock_release(&m->locked);
+}
+/* --- next section --- */
+#include <stdint.h>
+#include <stddef.h>
+#include <stdatomic.h>
+typedef struct {
+    _Atomic int count;
+    unsigned max;
+}
+sem_t;
+int sem_init(sem_t *s,unsigned initial,unsigned max) {
+    s->max=max;
+    atomic_store(&s->count,(int)initial);
+    return 0;
+}
+int sem_give(sem_t *s) {
+    int c=atomic_load(&s->count);
+    if((unsigned)c>=s->max)return -1;
+    atomic_fetch_add(&s->count,1);
+    return 0;
+}
+int sem_take(sem_t *s,uint32_t timeout_ms) {
+    (void)timeout_ms;
+    int c;
+    do {
+        c=atomic_load(&s->count);
+        if(c<=0)return -1;
+    }
+    while(!atomic_compare_exchange_weak(&s->count,&c,c-1));
+    return 0;
+}
+/* --- next section --- */
+#include <stdint.h>
+#include <stddef.h>
+typedef struct {
+    int readers, writer;
+}
+rw_lock_t;
+void rw_rlock(rw_lock_t *l) {
+    while(l->writer);
+    l->readers++;
+}
+void rw_runlock(rw_lock_t *l) {
+    l->readers--;
+}
+void rw_wlock(rw_lock_t *l) {
+    while(l->readers||l->writer);
+    l->writer=1;
+}
+void rw_wunlock(rw_lock_t *l) {
+    l->writer=0;
+}
+```
+
+## Step 4 — Complexity
+
+| Operation | Time | Space |
+|---|---:|---:|
+| primary API | O(1) typical | O(1) or O(cap) |
+
+## Step 5 — Edge cases
+
+1. NULL / zero-length — defined error or no-op.
+2. Boundary at max capacity — no overrun.
+3. Repeated calls idempotent where API requires.
+
+## Step 6 — Concurrency / ISR / context notes
+
+Label ISR-writable vs task-only fields. Keep ISR push O(1); defer parsing to task.
+
+## Step 7 — Follow-up answers
+
+**Q: Spinlock vs mutex?**  
+**A:** Spinlock for short ISR/task sections; mutex sleeps — never in ISR.
+
+
+## Step 8 — Tests
+
+1. Happy path — minimal valid input produces expected output.
+2. Zero/null/empty — defined error, no crash.
+3. Boundary — max capacity or timeout edge.
+4. Stress — back-to-back calls or burst traffic.
+
+## Further study
+
+- [Kernel Services](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Real_Time_Systems/Kernel_Services.md)
+- [Reader Writer](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Data_Struct_Implementation/concurrency/ReaderWritter.md)
+
+---
+
+*Generated by `tools/generate_merged_solutions.py` for M009.*
