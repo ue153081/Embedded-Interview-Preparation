@@ -94,7 +94,7 @@ Label ISR-writable vs task-only fields. Keep ISR push O(1); defer parsing to tas
 
 ## Further study
 
-- [Memory-Mapped I/O](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Embedded_C/Memory-Mapped_I_O.md)
+- [Memory-Mapped I/O](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Embedded_C/Memory_Mapped_IO.md)
 
 ---
 

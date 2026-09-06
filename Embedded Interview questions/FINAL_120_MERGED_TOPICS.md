@@ -2,7 +2,7 @@
 
 **Purpose:** One question per **topic** — related FINAL 120 items merged so you prepare each idea once, with variants as follow-ups inside a single solution.  
 **Source:** [`FINAL_120_embedded_interview_questions_top_MNC.md`](./FINAL_120_embedded_interview_questions_top_MNC.md) (120 → **40** merged topics + 1 mock checkpoint)  
-**Solutions:** [`solutions/FINAL_120_MERGED/`](./solutions/FINAL_120_MERGED/) (one file per `M###`)
+**Solutions:** [`solutions/FINAL_120_MERGED/README.md`](./solutions/FINAL_120_MERGED/README.md) — **all 40 topics complete** (Steps 0–8 + Further study links)
 
 **Legend:** `C` coding · `V` verbal · `D` design · `M` merged (may span C+V+D)
 
@@ -291,21 +291,11 @@
 
 **Single prep question:** `container_of`, `offsetof`, intrusive doubly-linked list node usage.
 
----
-
-## M024 — (Reserved) — cross-link
-
-*M017 parser + M005 CRC often tested together; prepare one integrated example.*
+*Tip: M017 (parser) + M005 (CRC) are often tested together — prepare one integrated example.*
 
 ---
 
-## M025 — Coding checkpoint
-
-**Covers any weak gaps from original Q001–Q070 not drilled above.** Use FINAL_120 checklist for stragglers.
-
----
-
-# PART B — Verbal merged (M026–M038)
+# PART B — Verbal merged (M026–M036)
 
 ## M026 — Memory model: `volatile`, atomics, barriers, MMIO, UB
 

@@ -105,7 +105,7 @@ Label ISR-writable vs task-only fields. Keep ISR push O(1); defer parsing to tas
 
 ## Further study
 
-- [Watchdog Timers](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/HW_Module/Watchdog_Timers.md)
+- [Watchdog Timers](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Hardware_Fundamentals/Watchdog_Timers.md)
 - [Response Time Analysis](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Real_Time_Systems/Response_Time_Analysis.md)
 
 ---

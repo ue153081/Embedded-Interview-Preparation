@@ -81,7 +81,7 @@ Label ISR-writable vs task-only fields. Keep ISR push O(1); defer parsing to tas
 
 ## Further study
 
-- [Unit Testing for Embedded](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Debugging/Unit_Testing_for_Embedded.md)
+- [Unit Testing for Embedded](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Debugging/Unit_Testing_Embedded.md)
 
 ---
 

@@ -78,7 +78,7 @@ Signature topic: HDSL on PRU, EnDAT3 parse on R5F, host ABI via mmap ring — sa
 ## Further study
 
 - [Multi-Core Programming](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Advanced_Hardware/Multi_Core_Programming.md)
-- [Cross-MCU Communication](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/System_Design/Cross-MCU_Communication.md)
+- [Cross-MCU Communication](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Interview/SystemDesign/embeddedDesignTopics/crossMCUComm.md)
 
 ---
 

@@ -122,7 +122,6 @@ Label ISR-writable vs task-only fields. Keep ISR push O(1); defer parsing to tas
 ## Further study
 
 - [I2C Protocol](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Communication_Protocols/I2C_Protocol.md)
-- [i2c bus](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Bus_Protocol/i2c.md)
 
 ---
 

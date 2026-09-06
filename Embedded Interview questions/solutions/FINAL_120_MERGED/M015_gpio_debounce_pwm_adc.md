@@ -111,8 +111,8 @@ Label ISR-writable vs task-only fields. Keep ISR push O(1); defer parsing to tas
 
 ## Further study
 
-- [GPIO Configuration](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/HW_Module/GPIO_Configuration.md)
-- [Analog I/O](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/HW_Module/Analog_I_O.md)
+- [GPIO Configuration](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Hardware_Fundamentals/GPIO_Configuration.md)
+- [Analog I/O](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Hardware_Fundamentals/Analog_I_O.md)
 
 ---
 

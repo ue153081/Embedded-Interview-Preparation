@@ -79,7 +79,7 @@ Drive OTA: verified image in inactive bank, atomic flag swap — bricked units r
 ## Further study
 
 - [Firmware Update Mechanisms](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/System_Integration/Firmware_Update_Mechanisms.md)
-- [Secure Boot and Chain of Trust](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Embedded_Security/Secure_Boot_and_Chain_of_Trust.md)
+- [Secure Boot and Chain of Trust](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Embedded_Security/Secure_Boot_Chain_Trust.md)
 
 ---
 

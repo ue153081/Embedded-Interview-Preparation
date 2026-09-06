@@ -421,7 +421,7 @@ Label ISR-writable vs task-only fields. Keep ISR push O(1); defer parsing to tas
 ## Further study
 
 - [Timer Wheel](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Data_Struct_Implementation/timerWheel/README.md)
-- [Timer/Counter Programming](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/HW_Module/Timer_Counter_Programming.md)
+- [Timer/Counter Programming](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Hardware_Fundamentals/Timer_Counter_Programming.md)
 
 ---
 

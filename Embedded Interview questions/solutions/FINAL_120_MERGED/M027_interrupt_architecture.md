@@ -54,7 +54,7 @@ EnDAT position ISR only latched timer and pushed to ring; frame parse ran on R5F
 
 ## Further study
 
-- [External Interrupts](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/HW_Module/External_Interrupts.md)
+- [External Interrupts](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Hardware_Fundamentals/External_Interrupts.md)
 - [Interrupt Handling](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Real_Time_Systems/Interrupt_Handling.md)
 
 ---

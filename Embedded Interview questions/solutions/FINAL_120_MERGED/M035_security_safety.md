@@ -52,8 +52,8 @@ Drive platform: outer WDT reset if motion supervisor missed deadline; inner WDT 
 
 ## Further study
 
-- [Secure Boot and Chain of Trust](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Embedded_Security/Secure_Boot_and_Chain_of_Trust.md)
-- [Watchdog Timers](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/HW_Module/Watchdog_Timers.md)
+- [Secure Boot and Chain of Trust](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Embedded_Security/Secure_Boot_Chain_Trust.md)
+- [Watchdog Timers](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Hardware_Fundamentals/Watchdog_Timers.md)
 
 ---
 

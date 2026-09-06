@@ -85,7 +85,7 @@ TI motor SDK pattern: HAL vtable per SOC family — same UART API on AM243x and 
 
 ## Further study
 
-- [Hardware Abstraction Layer](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/HW_Module/Hardware_Abstraction_Layer.md)
+- [Hardware Abstraction Layer](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Hardware_Fundamentals/Hardware_Abstraction_Layer.md)
 - [UART Protocol](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Communication_Protocols/UART_Protocol.md)
 
 ---

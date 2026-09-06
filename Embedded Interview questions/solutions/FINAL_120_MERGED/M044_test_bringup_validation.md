@@ -77,7 +77,7 @@ Encoder driver: fake MMIO let us run 200 host tests per PR; HIL caught one flag 
 
 ## Further study
 
-- [Unit Testing for Embedded](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Debugging/Unit_Testing_for_Embedded.md)
+- [Unit Testing for Embedded](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Debugging/Unit_Testing_Embedded.md)
 - [Hardware-in-the-Loop Testing](https://github.com/theEmbeddedGeorge/theEmbeddedNewTestament.github.io/blob/master/Debugging/Hardware-in-the-Loop_Testing.md)
 
 ---
