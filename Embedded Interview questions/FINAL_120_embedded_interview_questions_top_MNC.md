@@ -240,6 +240,7 @@ Q086, Q087, Q093, Q102, Q105, Q110, Q113, Q114, Q115, Q117
 | Design prompts expanded | `Embedded/system_design_questions_only.md` |
 | Company archive originals | `interview_questions_archive_by_company.md` |
 | Strategy / depth rules | `top_mnc_embedded_interview_questions_indepth.md` |
+| **FINAL 120 solutions (Steps 0–8)** | `solutions/FINAL_120/README.md` (sample: Q016) |
 | Day-before drill | `day_before_interview_revision.md` |
 
 ---
