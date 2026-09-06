@@ -241,6 +241,7 @@ Q086, Q087, Q093, Q102, Q105, Q110, Q113, Q114, Q115, Q117
 | Company archive originals | `interview_questions_archive_by_company.md` |
 | Strategy / depth rules | `top_mnc_embedded_interview_questions_indepth.md` |
 | **FINAL 120 solutions (Steps 0–8)** | `solutions/FINAL_120/README.md` (sample: Q016) |
+| **Merged 40-topic list** | `FINAL_120_MERGED_TOPICS.md` |
 | Day-before drill | `day_before_interview_revision.md` |
 
 ---
