@@ -1,14 +1,16 @@
 # Binary Search — takeUforward (BS-1 to BS-27)
 
-Source playlist: [Binary Search Beginner to Advanced](https://www.youtube.com/playlist?list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF)
+Source: [Binary Search Beginner to Advanced](https://www.youtube.com/playlist?list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF)
 
-Each problem uses the same interview template as the embedded coding solutions:
+Each problem has three parts:
 
-**Step 0** clarifying questions → **Step 1** approach → **Step 2** invariants → **Step 3** Python → **Step 4** complexity → **Step 5** edges → **Step 6** overflow / loop-condition notes → **Step 7** follow-ups → **Step 8** tests.
+1. **Problem** — statement
+2. **Approaches** — brute force → optimized (time/space)
+3. **Solution** — optimized Python only
 
 | ID | Problem | File |
 |----|---------|------|
-| BS-1 | Binary search introduction (iterative + recursive + overflow-safe mid) | [BS-01_binary_search_introduction.md](./BS-01_binary_search_introduction.md) **(sample)** |
+| BS-1 | Binary search on a sorted array | [BS-01_binary_search_introduction.md](./BS-01_binary_search_introduction.md) **(sample)** |
 | BS-2 | Lower bound, upper bound, search insert position, floor & ceil | — |
 | BS-3 | First / last occurrence; count occurrences | — |
 | BS-4 | Search in rotated sorted array I | — |
