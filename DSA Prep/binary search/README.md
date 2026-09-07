@@ -2,11 +2,12 @@
 
 Source: [Binary Search Beginner to Advanced](https://www.youtube.com/playlist?list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF)
 
-Each problem has three parts:
+Each problem has four parts:
 
 1. **Problem** — statement
 2. **Approaches** — brute force → optimized (time/space)
-3. **Solution** — optimized Python only
+3. **Pseudocode** — optimized algorithm
+4. **Solution** — optimized Python only
 
 | ID | Problem | File |
 |----|---------|------|

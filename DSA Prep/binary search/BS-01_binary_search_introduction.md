@@ -22,7 +22,22 @@ Keep an inclusive window `[low, high]`. Compare `x` with the middle element and 
 
 Time: O(log n) · Space: O(1)
 
-Use `mid = low + (high - low) // 2` (same as `(low + high) // 2` in Python, but the overflow-safe form expected in interviews).
+## Pseudocode (optimized)
+
+```
+binary_search(nums, x):
+    low ← 0
+    high ← n - 1
+    while low ≤ high:
+        mid ← low + (high - low) / 2
+        if nums[mid] = x:
+            return mid
+        else if nums[mid] < x:
+            low ← mid + 1
+        else:
+            high ← mid - 1
+    return -1
+```
 
 ## Solution (optimized)
 

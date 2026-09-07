@@ -1,6 +1,6 @@
 # DSA Prep
 
-Python DSA notes: **problem → approaches (brute → optimal) → optimized code**.
+Python DSA notes: **problem → approaches (brute → optimal) → pseudocode → optimized Python**.
 
 **Playlist (Binary Search):** [takeUforward BS-1 → BS-27](https://www.youtube.com/playlist?list=PLgUwDviBIf0pMFMWuuvDNMAkoQFi-h0ZF)
 
