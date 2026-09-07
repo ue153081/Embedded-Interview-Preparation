@@ -4,35 +4,41 @@
 
 ## Problem
 
-Given a **sorted** array `nums` (non-decreasing) and a target `x`, return any index `i` such that `nums[i] == x`. If `x` is not present, return `-1`.
+You are given an integer array `nums` of length `n` that is sorted in **non-decreasing** order, and an integer `target`.
+
+Implement a function that searches for `target` in `nums` and returns its **index**. If `target` does not appear in `nums`, return `-1`.
+
+If `target` occurs more than once, returning **any** matching index is acceptable. You should aim for better than linear time.
+
+**Examples**
+
+- `nums = [1, 3, 5, 7, 9]`, `target = 7` → `3`
+- `nums = [1, 3, 5, 7, 9]`, `target = 6` → `-1`
+- `nums = []`, `target = 1` → `-1`
+
+**Constraints:** `0 <= n <= 10^5`, array is sorted non-decreasing.
 
 ## Approaches
 
 **1. Brute force — linear scan**  
-Walk from left to right and compare each element with `x`.  
-Time: O(n) · Space: O(1)  
-Correct, but ignores that the array is already sorted.
+Compare every element with `target`.  
+Time: O(n) · Space: O(1)
 
 **2. Optimized — binary search**  
-Keep an inclusive window `[low, high]`. Compare `x` with the middle element and throw away half the window each step:
-
-- `nums[mid] == x` → found
-- `nums[mid] < x` → search right (`low = mid + 1`)
-- `nums[mid] > x` → search left (`high = mid - 1`)
-
+Because the array is sorted, compare `target` with the middle of the remaining window `[low, high]` and discard half the elements each step.  
 Time: O(log n) · Space: O(1)
 
 ## Pseudocode (optimized)
 
 ```
-binary_search(nums, x):
+binary_search(nums, target):
     low ← 0
     high ← n - 1
     while low ≤ high:
         mid ← low + (high - low) / 2
-        if nums[mid] = x:
+        if nums[mid] = target:
             return mid
-        else if nums[mid] < x:
+        else if nums[mid] < target:
             low ← mid + 1
         else:
             high ← mid - 1
@@ -45,13 +51,13 @@ binary_search(nums, x):
 from typing import List
 
 
-def binary_search(nums: List[int], x: int) -> int:
+def binary_search(nums: List[int], target: int) -> int:
     low, high = 0, len(nums) - 1
     while low <= high:
         mid = low + (high - low) // 2
-        if nums[mid] == x:
+        if nums[mid] == target:
             return mid
-        if nums[mid] < x:
+        if nums[mid] < target:
             low = mid + 1
         else:
             high = mid - 1
