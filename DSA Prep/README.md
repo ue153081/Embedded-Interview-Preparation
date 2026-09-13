@@ -6,4 +6,4 @@ Python DSA notes: **problem → approaches (brute → optimal) → pseudocode �
 
 | Folder | Status |
 |--------|--------|
-| [binary search](./binary%20search/README.md) | BS-1 to BS-27 complete |
+| [binary search](./binary%20search/README.md) | BS-1 to BS-27 + [cheatsheet](./binary%20search/CHEATSHEET.md) |

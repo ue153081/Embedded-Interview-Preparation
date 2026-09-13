@@ -9,6 +9,8 @@ Each problem has four parts:
 3. **Pseudocode** — optimized algorithm
 4. **Solution** — optimized Python only
 
+**Cheatsheet (all techniques):** [CHEATSHEET.md](./CHEATSHEET.md)
+
 Runnable checks: `python3 "DSA Prep/binary search/solutions.py"`
 
 | ID | Problem | File |
