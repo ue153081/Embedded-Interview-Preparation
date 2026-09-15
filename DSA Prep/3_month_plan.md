@@ -1,18 +1,33 @@
-# 3-Month DSA Plan (Google-style rounds, embedded role)
+# 3-Month DSA Plan — Hard topics first
 
-**Goal:** Be able to pick a pattern, write a correct solution, and explain complexity in 35–45 minutes.
+**Order you asked for:** Binary search → Recursion / backtracking → Trees → Graphs → DP.
+
+Arrays, sliding window, linked list, and stack are **not** month 1. They are a **short catch-up in Week 12** plus whatever you already know from work. Google still asks them; they just come *after* the topics that take longest to learn.
+
+**Goal:** In 35–45 minutes: name the pattern, code it, explain complexity.
 
 **Sources**
 
-- Playlist index: [A2Z_playlist_topic_list.md](./A2Z_playlist_topic_list.md)
-- Binary search notes + [CHEATSHEET.md](./binary%20search/CHEATSHEET.md)
-- Sheet for extra topics not in the playlist: [Strivers A2Z sheet](https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/)
+- Binary search: [notes](./binary%20search/README.md) + [CHEATSHEET.md](./binary%20search/CHEATSHEET.md) — do **not** rewatch all 28 videos
+- Playlist: [A2Z_playlist_topic_list.md](./A2Z_playlist_topic_list.md)
+- Backtracking / heaps / bits / strings: [A2Z sheet](https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/) (those videos are mostly *not* in the A2Z playlist)
 
-**Assumption:** ~12–15 focused hours/week (weekdays 1.5–2 h, weekend 4–5 h). If you have more time, add problems — do not add more videos.
+**Time:** ~12–15 h/week. Watch 1.5–2×, skip duplicate C++/Java, **then solve**.
 
-**Language:** Keep notes/solutions in **Python**. Once a week, recode 2 problems in **C++** (Google embedded often uses C++).
+**Language:** Python for learning. Recode **2 problems/week in C++**.
 
-Do **not** try to finish all 314 videos. Watch 1.5–2×, skip dry C++/Java duplicates, then **solve**.
+---
+
+## At a glance
+
+| Weeks | Focus |
+|---|---|
+| 1–2 | Binary search (all 3 families) |
+| 3 | Recursion + backtracking |
+| 4–5 | Binary trees + BST |
+| 6–8 | Graphs |
+| 9–11 | DP |
+| 12 | Linear catch-up (arrays / window / LL / stack) + mocks |
 
 ---
 
@@ -20,186 +35,179 @@ Do **not** try to finish all 314 videos. Watch 1.5–2×, skip dry C++/Java dupl
 
 | Day | What |
 |---|---|
-| Mon–Thu | 1 pattern video + 2 problems (brute → optimal on paper, then code) |
-| Fri | Weak-topic drill: 3 problems from this week, no video |
-| Sat | 4–5 problems mixed (include 1 from 2 weeks ago) |
-| Sun | 1 timed set: **2 problems in 90 minutes**, then review mistakes |
+| Mon–Thu | 1 pattern + 2 problems (brute → optimal, then code) |
+| Fri | 3 problems from **this** week, no video |
+| Sat | 4 mixed; include 1 from ≥2 weeks ago |
+| Sun | **2 problems in 90 minutes**, then review |
 
-After every problem write one line: **pattern + invariant** (example: “BS on answer, `can(mid)` = hours ≤ h”).
-
----
-
-## What “done” means for a topic
-
-- You can solve a **new** problem of that pattern without opening notes.
-- You can state time/space and why the loop/recurrence is correct.
-- You have 8–12 **marked** problems (the ones you failed first time) for revision.
+After each problem, one line: **pattern + invariant**.
 
 ---
 
-## Month 1 — Arrays, search, window (Weeks 1–4)
+## Month 1 — Binary search, recursion, trees (Weeks 1–4)
 
-Foundation Google screens live here. Binary search is already written in this repo — use notes, do not rewatch all 28 videos.
+### Week 1 — Binary search on indices (families A)
 
-### Week 1 — Setup, hashing, sorting, array easy
+You already have full notes. Code from the **cheatsheet**, not by copying solutions.
 
-**Watch:** complexity, STL *or* Python collections, hashing, sorting (selection/merge/quick at high level), array intro videos (second largest → max consecutive 1s).
+**Learn:** exact search, lower/upper bound, first/last, rotated I/II, min/rotation count, single element, 1D peak.
 
-**Solve (10–12):** second largest, remove duplicates, rotate array, move zeros, missing number, appear-once (XOR), max consecutive 1s, union/intersection of sorted arrays, two sum (hash), valid anagram / frequency map.
+**Solve (12):** BS-1 to BS-9 + search insert + floor/ceil + count occurrences. One C++ recode: rotated search.
 
-**Exit:** O(n) vs O(n log n) vs O(n²) is automatic; hash map vs sort tradeoff.
+**Exit:** `low <= high` vs bound-search; identify the sorted half in a rotation.
 
-### Week 2 — Array medium
+### Week 2 — Binary search on the answer + 2D (families B, C)
 
-**Watch:** 2 sum variants, sort 0/1/2, majority (Moore), Kadane, stock I, rearrange by sign, next permutation, leaders, longest consecutive, matrix zero / rotate / spiral.
+**Learn:** sqrt, nth root, Koko, bouquets, ship, kth missing, cows, books/split array, 2D search I/II, median of two arrays, peak II (stretch).
 
-**Solve (12–14):** all of the above + Pascal nCr, majority II, merge intervals, merge two sorted arrays in-place.
+**Solve (12):** at least Koko, ship, cows, books, kth missing, 2D I, median of two arrays. Cheatsheet families B and C until `can(x)` is automatic.
 
-**Exit:** Kadane, Dutch national flag, and “hash set for consecutive sequence” without notes.
+**Exit:** given “minimize the maximum”, you write `can(mid)` without a similar problem open.
 
-### Week 3 — Array hard + start binary search
+### Week 3 — Recursion + backtracking
 
-**Watch:** 3 sum, 4 sum, subarray XOR K, missing+repeating, inversions, reverse pairs, max product subarray. Then BS cheatsheet only.
+This is the DFS engine for trees, graphs, and DP.
 
-**Solve (10):** 3 sum, subarray sum K, XOR K, reverse pairs *or* inversions (one merge-sort count is enough), max product. Then BS-1 to BS-9 from [binary search](./binary%20search/README.md) — code each from the cheatsheet, not from the solution file.
+**Watch:** Re 1–5 (playlist). Sheet: print all subsequences, combination sum I/II, subsets, subset sum, palindrome partition, N-Queens **or** sudoku (pick one hard).
 
-**Exit:** two pointers on a sorted array; lower/upper bound; rotated array search.
+**Solve (12):** factorial/print 1..n style, reverse array via recursion, subsequences, combination sum, subsets, N-Queens, word search (grid DFS), generate parentheses.
 
-### Week 4 — Binary search on answer + 2D
+**Exit:** base case, choose/not-choose, undo on backtrack. You never lose track of “what is in the path.”
 
-**Watch:** skip BS-1–9 if Week 3 is solid. Skim BS-10–27 using the cheatsheet.
+### Week 4 — Binary trees (traversals → medium)
 
-**Solve (12):** sqrt, koko, bouquets, ship packages, kth missing, aggressive cows, book allocation / split array, search 2D I & II, median of two sorted arrays, peak I.
+**Watch:** L1–L8, L14–L18, L24, L26–L27 (skip L2/L3 language clones).
 
-**Must recode in C++:** koko + rotated search + 2D matrix.
+**Solve (12):** pre/in/post recursive + iterative inorder, level order, height, balanced, diameter, max path sum, identical, right view, root-to-node path, LCA.
 
-**Exit:** you can invent `can(x)` for a “minimize the maximum” prompt.
+**Exit:** DFS that **returns extra state** (height, max path).
 
-**Month 1 checkpoint (end of Week 4):** 8 random array/BS problems in 3 hours, ≥5 fully correct.
-
----
-
-## Month 2 — Linear DS, bits, trees (Weeks 5–8)
-
-### Week 5 — Sliding window, two pointers, strings
-
-**Watch:** SW L1 templates + L3, L4, L8, L12 (skip if time: L2, L7). Strings from the **A2Z sheet** (not this playlist): reverse, palindrome, atoi-style parse, longest palindrome, KMP only if extra time.
-
-**Solve (12):** longest substring no repeat, max consecutive 1s III, fruit baskets, character replacement, min window substring, binary subarrays with sum, 3-sum (again), container-with-most-water or trapping rainwater (preview of stack), group anagrams, longest common prefix.
-
-**Exit:** variable window “grow/shrink” template.
-
-### Week 6 — Linked list + bit manipulation
-
-**Watch:** LL L1–L17 (basics, reverse, middle, cycle, intersection, palindrome). Bits from sheet: set/unset/toggle, count bits, XOR of all, single number, subsets via bits *or* one power-of-two video.
-
-**Solve (12):** reverse LL, reverse k-group (at least understand), detect/start of cycle, intersection, palindrome LL, add two numbers, copy random pointer (stretch), bits: single number, missing number XOR, count bits, power of two, subset generation.
-
-**Exit:** Floyd cycle + reverse LL in sleep.
-
-### Week 7 — Stack, queue, heaps
-
-**Watch:** stack L1–L8, L12, L16, LRU. Heaps from sheet: heapify, kth largest, top-K frequent, merge K lists, median of stream (stretch).
-
-**Solve (12):** valid parentheses, min stack, NGE, trapping rain water, largest rectangle in histogram, sliding window maximum, LRU, kth largest, top K frequent, k closest, merge K sorted lists.
-
-**Exit:** monotonic stack “next greater”; heap for kth.
-
-### Week 8 — Recursion / backtracking + binary trees start
-
-**Watch:** Re 1–5. Sheet backtracking: subsequences, combination sum I/II, subset sum, palindrome partition, N-Queens (1–2 problems). Trees L1–L13 (traversals).
-
-**Solve (12):** print subsequences, combination sum, subsets, N-Queens or sudoku (one is enough), recursive + iterative inorder/preorder/postorder, level order, height, balanced tree, diameter.
-
-**Exit:** recursion tree + base case; BFS vs DFS on trees.
-
-**Month 2 checkpoint:** 1 linked-list + 1 window + 1 tree + 1 stack in 2 hours.
+**Month 1 checkpoint:** 1 BS-on-answer + 1 backtracking + 1 tree DFS in 90 minutes.
 
 ---
 
-## Month 3 — Trees, graphs, DP, mocks (Weeks 9–12)
+## Month 2 — Trees finish, then graphs (Weeks 5–8)
 
-### Week 9 — Trees medium/hard + BST
+### Week 5 — Trees hard + BST
 
-**Watch:** trees L14–L27, L34–L36 (construct, serialize). BST L39–L47, L51.
+**Watch:** L19–L21, L34–L36, L38. BST L39–L47, L51.
 
-**Solve (12):** max path sum, LCA, views (right + vertical or zig-zag), symmetric, burn tree *or* nodes at distance K (one), construct from in+pre, validate BST, kth in BST, LCA in BST, BST iterator or two-sum BST.
+**Solve (12):** zig-zag, vertical or top/bottom view, construct from in+pre, serialize/deserialize, flatten (stretch), search/insert BST, ceil/floor, validate BST, kth in BST, LCA in BST, two-sum BST.
 
-**Exit:** “DFS returning extra info” (height/diameter/path sum).
+**Exit:** inorder of a BST is sorted; construct tree from two traversals.
 
-### Week 10 — Graphs I (must for Google)
+### Week 6 — Graphs I — BFS / DFS / matrix
 
-**Watch:** G-1 to G-26 (skip duplicate C++/Java). Focus BFS/DFS, islands, cycle, bipartite, topo, course schedule, alien dictionary.
+**Watch:** G-1 to G-18 (skip G-2/G-3 language clone).
 
-**Solve (12):** number of islands/provinces, rotten oranges, flood fill, cycle undirected + directed, bipartite, topo sort, course schedule, word ladder I, clone graph if you know it.
+**Solve (12):** graph representation, BFS, DFS, provinces, islands, flood fill, rotten oranges, 0/1 nearest, surrounded regions, cycle undirected (BFS or DFS), bipartite, distinct islands (stretch).
 
-**Exit:** adjacency list, BFS queue, DFS stack/recursion, indegree.
+**Exit:** visited[], queue vs recursion, “multi-source BFS.”
 
-### Week 11 — Graphs II + greedy
+### Week 7 — Graphs II — directed, topo, shortest
 
-**Watch:** Dijkstra G-32–G-38, DSU G-46–G-50 (skip G-54–56 unless extra). Greedy: jump I/II, meetings / non-overlap, fractional knapsack, platforms.
+**Watch:** G-19 to G-38 (skip Word Ladder II if behind).
 
-**Solve (10):** Dijkstra on a grid (binary maze or min effort), cheapest flights K stops (stretch), network connected / accounts merge (DSU), jump game, N meetings, min platforms.
+**Solve (12):** cycle directed, topo DFS, Kahn, course schedule, alien dictionary, DAG shortest path, unit-weight shortest, word ladder I, Dijkstra (array or grid), binary maze / min effort.
 
-**Skip unless extra:** Kosaraju, Tarjan bridges, articulation, Floyd–Warshall deep dive.
+**Exit:** indegree + queue; Dijkstra vs BFS (when weights are 1).
 
-**Exit:** “when BFS vs Dijkstra vs Union-Find.”
+### Week 8 — Graphs III — DSU + light greedy
 
-### Week 12 — DP core + full revision
+**Watch:** G-44–G-50. Optional G-54. Greedy only if time: jump I/II, N meetings.
 
-**Do not** finish DP 1–56. Cover patterns:
+**Solve (10):** MST idea (Prim or Kruskal — one is enough), DSU template, number of provinces (DSU), network connected, accounts merge, islands II **or** stones. Jump game I.
 
-| Pattern | Problems |
-|---|---|
-| 1D | climb stairs, frog jump, house robber I/II |
-| Grid | unique paths, min path sum, triangle |
-| Knapsack / subset | subset sum, partition equal, 0/1 knapsack, coin change |
-| Strings | LCS, edit distance (LIS via DP or binary search) |
-| Stock | stock I (already) + II |
+**Skip:** Bellman, Floyd, Tarjan, articulation, Word Ladder II.
 
-**Solve (10 DP + mixed mocks):** those patterns, then **3 mock interviews** (2 problems, 45 min each, no notes). Redo all marked fails from months 1–2.
+**Exit:** “BFS vs Dijkstra vs Union-Find” in one sentence each.
 
-**Skip for now:** MCM, burst balloons, boolean parenthesization, DP on rectangles — unless mocks are already green.
-
-**Month 3 checkpoint:** 2 unseen mediums in 45 minutes, talk through invariants.
+**Month 2 checkpoint:** islands + course schedule + Dijkstra on a grid, no notes.
 
 ---
 
-## Revision (do this the whole 12 weeks)
+## Month 3 — DP, then linear catch-up + mocks (Weeks 9–12)
 
-- **Anki/list of fails only** — not every solved problem.
-- Every Saturday: 2 problems from **≥14 days ago**.
-- After Week 4: 15 min cheatsheet recap (binary search families A/B/C).
-- After Week 10: one graph + one DP every weekend forever until the interview.
+### Week 9 — DP 1D and grids
+
+**Watch:** DP 1–13 (stock I can wait).
+
+**Solve (12):** climb stairs, frog jump ± K, house robber I/II, ninja training, unique paths I/II, min path sum, triangle, falling path sum. Cherry pickup II only if ahead.
+
+**Exit:** memo → tabulation → rolling array for 1D.
+
+### Week 10 — DP knapsack / subset / coins
+
+**Watch:** DP 14–24.
+
+**Solve (12):** subset sum, partition equal, min subset difference, count subsets, 0/1 knapsack, unbounded knapsack, coin change (min coins + combinations), target sum, rod cutting.
+
+**Exit:** 0/1 vs unbounded (loop order).
+
+### Week 11 — DP strings, LIS, stocks
+
+**Watch:** DP 25–34, 36–40, 41–43. Skip DP 48–56 unless extra.
+
+**Solve (12):** LCS, longest common substring, palindromic subsequence, edit distance, wildcard (stretch), LIS (DP + n log n idea), stock I/II, stock with cooldown **or** fee (one).
+
+**Exit:** string DP `dp[i][j]`; LIS as “patience / tails” or classic DP.
+
+### Week 12 — Linear catch-up + mocks
+
+Google still asks these. One week, high yield only.
+
+**Arrays / hash (1–2 days):** two sum, Kadane, stock I (already), 3 sum, merge intervals, set matrix zero.
+
+**Window (1 day):** longest substring no repeat, min window, max consecutive 1s III.
+
+**Linked list (1 day):** reverse, cycle start, intersection, middle, palindrome.
+
+**Stack (1 day):** valid parentheses, NGE, trapping rain water **or** histogram.
+
+**Then:** 4–6 timed mocks (2 questions, 45 min, no notes). Redo the fail list from weeks 1–11.
+
+**Month 3 checkpoint:** 2 unseen mediums in 45 minutes, including at least one of {graph, DP, tree, BS-on-answer}.
 
 ---
 
-## If time explodes (cut in this order)
+## Revision (all 12 weeks)
 
-1. Graph G-41–G-56 (Bellman, Floyd, MST extras, SCC)  
-2. DP partition + rectangles (DP 48–56)  
-3. Tree L29–L32, L37 Morris  
-4. Maths sieve playlist  
-5. LFU, word ladder II  
-
-**Never cut:** arrays, hashing, BS-on-answer, sliding window, LL cycle/reverse, stack NGE, tree DFS, graph BFS/DFS/topo, house robber / knapsack / LCS.
+- Fail list only (~40 problems).
+- Saturday: 2 problems from ≥14 days ago (always mix **this month’s hard topic**).
+- After Week 2: 15 min BS cheatsheet (families A/B/C).
+- After Week 8: 1 graph every weekend until the interview.
+- After Week 11: 1 DP every weekend until the interview.
 
 ---
 
-## Parallel: embedded vs DSA
+## If a week slips (cut in this order)
 
-This plan is **DSA only**. Keep embedded (drivers, rings, memory, concurrency) on a **separate** 4–6 h/week track so DSA does not eat the firmware round. If a week is overloaded, drop greedy/maths, not C coding.
+1. DP 48–56 (MCM, balloons, rectangles)  
+2. Graph G-41–G-56 extras (Floyd, SCC, bridges)  
+3. Tree Morris / burn / complete-tree count  
+4. Greedy playlist  
+5. Word ladder II, LFU, cherry pickup II  
+
+**Never cut:** BS-on-answer, backtracking template, tree LCA/path-sum, graph BFS/DFS/topo/Dijkstra, house robber, knapsack, LCS.
+
+**Do not skip Week 12 linear catch-up** unless your mocks already include two-sum, window, and reverse-LL — those still show up in Google screens.
 
 ---
 
-## Numbers to hit in 12 weeks
+## Parallel: embedded
+
+Keep firmware/C (rings, memory, drivers) on a **separate** 4–6 h/week. This calendar is DSA only.
+
+---
+
+## 12-week numbers
 
 | | Target |
 |---|---|
-| New problems coded | ~130–150 |
-| Marked for revision | ~40 |
-| Timed 90-min sessions | ≥12 (one per Sunday) |
+| New problems | ~130 |
+| Fail-list | ~40 |
+| Sunday 90-min sets | 12 |
 | C++ recodes | ≥20 |
-| Full mocks (2 Q, 45 min) | ≥6 in weeks 11–12 |
+| Full mocks | ≥6 in Week 12 (start two in Week 11 if possible) |
 
-That is enough **technique** for Google DSA if you are solving, not collecting videos. The playlist list is the map; this file is the calendar.
+Binary search, recursion, trees, graphs, and DP get **11 of 12 weeks**. Linear DSA gets a compressed Week 12 so the important topics are not delayed.
