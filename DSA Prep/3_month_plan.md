@@ -12,9 +12,30 @@ Arrays, sliding window, linked list, and stack are **not** month 1. They are a *
 - Playlist: [A2Z_playlist_topic_list.md](./A2Z_playlist_topic_list.md)
 - Backtracking / heaps / bits / strings: [A2Z sheet](https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/) (those videos are mostly *not* in the A2Z playlist)
 
-**Time:** ~12–15 h/week. Watch 1.5–2×, skip duplicate C++/Java, **then solve**.
+**Time (DSA):** ~10–12 h/week. Watch 1.5–2×, skip duplicate C++/Java, **then solve**.
 
-**Language:** Python for learning. Recode **2 problems/week in C++**.
+**Language:** Learn in Python if faster. **Sunday timed sets and mocks in C++** — Google embedded coding is usually C++.
+
+---
+
+## Is this plan right for Google embedded?
+
+**Yes, as the DSA half** — if firmware prep stays on a **separate** track. Google embedded loops are typically:
+
+- **2 coding interviews** that look like SWE DSA (trees, graphs, DP, binary search on answer, sometimes arrays/LL)
+- **1+ embedded / systems** (memory, concurrency, interrupts, drivers, bits, C)
+
+Your hard-topic order matches the **coding** bar. It is a weak plan if it is your *only* prep, or if you delay **arrays + bits** until week 12 and then get a phone screen in month 1.
+
+**Keep this plan, with three Google-embedded rules:**
+
+1. **Embedded questions stay outside these 12 weeks’ DSA hours.** Target ~6–8 h/week on your existing embedded set (rings, MMIO, ISR, memory, C). Do not steal that time to finish extra DP videos.
+2. **Every week, 2 “screen” problems** (30–40 min total): one **array/hash/two-pointer**, one **bit / simple C array**. Phone screens love these even when onsites are graphs.
+3. **Timed practice in C++**, not only Python.
+
+With that, the order BS → recursion → trees → graphs → DP is the right 3-month DSA spine for Google. Week 12 is polish, not the first time you see two-sum.
+
+**Do not add** more graph theory (SCC, Tarjan) or partition DP until mocks are already passing. Embedded depth beats those.
 
 ---
 
@@ -36,11 +57,13 @@ Arrays, sliding window, linked list, and stack are **not** month 1. They are a *
 | Day | What |
 |---|---|
 | Mon–Thu | 1 pattern + 2 problems (brute → optimal, then code) |
-| Fri | 3 problems from **this** week, no video |
-| Sat | 4 mixed; include 1 from ≥2 weeks ago |
-| Sun | **2 problems in 90 minutes**, then review |
+| Fri | 2 problems from **this** week + **1 screen problem** (array/hash **or** bits) |
+| Sat | 3 mixed (include 1 from ≥2 weeks ago) + **1 bit/array screen** |
+| Sun | **2 problems in 90 minutes, in C++**, then review |
 
 After each problem, one line: **pattern + invariant**.
+
+**Screen pool (rotate, 2/week, all 12 weeks):** two sum, Kadane, move zeros, merge intervals, 3-sum, longest substring no repeat, reverse linked list, detect cycle, valid parentheses, XOR single-number, count set bits, power of two, reverse bits, subarrays with given XOR. You already have several of these in `Embedded Interview questions/DSA/`.
 
 ---
 
@@ -194,9 +217,16 @@ Google still asks these. One week, high yield only.
 
 ---
 
-## Parallel: embedded
+## Parallel: embedded (do not merge into DSA days)
 
-Keep firmware/C (rings, memory, drivers) on a **separate** 4–6 h/week. This calendar is DSA only.
+| Track | Hours/week | Content |
+|---|---|---|
+| DSA (this file) | 10–12 | BS, recursion, trees, graphs, DP + 2 screen problems |
+| Embedded | 6–8 | Your planned firmware set: C, bits in registers, rings, ISR vs task, memory, concurrency, one driver story |
+
+If the week is too full, **cut a DP/graph video**, not the embedded block and not the 2 screen problems.
+
+Total ~16–20 h/week for 12 weeks is enough for a Google embedded loop if both tracks stay honest. More hours should go to **mocks + C++**, not more playlists.
 
 ---
 
