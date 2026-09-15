@@ -1,243 +1,275 @@
-# 3-Month DSA Plan — Hard topics first
+# 12-Week Plan — DSA + Embedded (Google L4 firmware)
 
-**Order you asked for:** Binary search → Recursion / backtracking → Trees → Graphs → DP.
+Two tracks, every week. Do not blend them into one sitting.
 
-Arrays, sliding window, linked list, and stack are **not** month 1. They are a **short catch-up in Week 12** plus whatever you already know from work. Google still asks them; they just come *after* the topics that take longest to learn.
+| Track | Source | Hours/week |
+|---|---|---|
+| **DSA** | [binary search](./binary%20search/README.md) + [A2Z list](./A2Z_playlist_topic_list.md) | 10–12 |
+| **Embedded** | [FINAL 120 merged](https://github.com/ue153081/Embedded-Interview-Preparation/tree/f8840c93ac30681a67de512e3f1ff3f6323a2bc9/Embedded%20Interview%20questions/solutions/FINAL_120_MERGED) (M001–M044) | 6–8 |
 
-**Goal:** In 35–45 minutes: name the pattern, code it, explain complexity.
+**DSA order:** Binary search → recursion/backtracking → trees → graphs → DP.  
+**Embedded order:** C bytes/bits → rings/concurrency → drivers → timers/reliability → verbal → design.
 
-**Sources**
+**Language:** DSA notes in Python; **all timed work and all embedded coding in C/C++**.
 
-- Binary search: [notes](./binary%20search/README.md) + [CHEATSHEET.md](./binary%20search/CHEATSHEET.md) — do **not** rewatch all 28 videos
-- Playlist: [A2Z_playlist_topic_list.md](./A2Z_playlist_topic_list.md)
-- Backtracking / heaps / bits / strings: [A2Z sheet](https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/) (those videos are mostly *not* in the A2Z playlist)
-
-**Time (DSA):** ~10–12 h/week. Watch 1.5–2×, skip duplicate C++/Java, **then solve**.
-
-**Language:** Learn in Python if faster. **Sunday timed sets and mocks in C++** — Google embedded coding is usually C++.
-
----
-
-## Is this plan right for Google embedded?
-
-**Yes, as the DSA half** — if firmware prep stays on a **separate** track. Google embedded loops are typically:
-
-- **2 coding interviews** that look like SWE DSA (trees, graphs, DP, binary search on answer, sometimes arrays/LL)
-- **1+ embedded / systems** (memory, concurrency, interrupts, drivers, bits, C)
-
-Your hard-topic order matches the **coding** bar. It is a weak plan if it is your *only* prep, or if you delay **arrays + bits** until week 12 and then get a phone screen in month 1.
-
-**Keep this plan, with three Google-embedded rules:**
-
-1. **Embedded questions stay outside these 12 weeks’ DSA hours.** Target ~6–8 h/week on your existing embedded set (rings, MMIO, ISR, memory, C). Do not steal that time to finish extra DP videos.
-2. **Every week, 2 “screen” problems** (30–40 min total): one **array/hash/two-pointer**, one **bit / simple C array**. Phone screens love these even when onsites are graphs.
-3. **Timed practice in C++**, not only Python.
-
-With that, the order BS → recursion → trees → graphs → DP is the right 3-month DSA spine for Google. Week 12 is polish, not the first time you see two-sum.
-
-**Do not add** more graph theory (SCC, Tarjan) or partition DP until mocks are already passing. Embedded depth beats those.
-
----
-
-## At a glance
-
-| Weeks | Focus |
-|---|---|
-| 1–2 | Binary search (all 3 families) |
-| 3 | Recursion + backtracking |
-| 4–5 | Binary trees + BST |
-| 6–8 | Graphs |
-| 9–11 | DP |
-| 12 | Linear catch-up (arrays / window / LL / stack) + mocks |
+**Embedded “done”:** close the solution file and **re-implement from memory** (compile on host). Reading M006 is not prep. Variants listed in each M-file are follow-ups — be able to speak them.
 
 ---
 
 ## Weekly rhythm
 
-| Day | What |
-|---|---|
-| Mon–Thu | 1 pattern + 2 problems (brute → optimal, then code) |
-| Fri | 2 problems from **this** week + **1 screen problem** (array/hash **or** bits) |
-| Sat | 3 mixed (include 1 from ≥2 weeks ago) + **1 bit/array screen** |
-| Sun | **2 problems in 90 minutes, in C++**, then review |
-
-After each problem, one line: **pattern + invariant**.
-
-**Screen pool (rotate, 2/week, all 12 weeks):** two sum, Kadane, move zeros, merge intervals, 3-sum, longest substring no repeat, reverse linked list, detect cycle, valid parentheses, XOR single-number, count set bits, power of two, reverse bits, subarrays with given XOR. You already have several of these in `Embedded Interview questions/DSA/`.
-
----
-
-## Month 1 — Binary search, recursion, trees (Weeks 1–4)
-
-### Week 1 — Binary search on indices (families A)
-
-You already have full notes. Code from the **cheatsheet**, not by copying solutions.
-
-**Learn:** exact search, lower/upper bound, first/last, rotated I/II, min/rotation count, single element, 1D peak.
-
-**Solve (12):** BS-1 to BS-9 + search insert + floor/ceil + count occurrences. One C++ recode: rotated search.
-
-**Exit:** `low <= high` vs bound-search; identify the sorted half in a rotation.
-
-### Week 2 — Binary search on the answer + 2D (families B, C)
-
-**Learn:** sqrt, nth root, Koko, bouquets, ship, kth missing, cows, books/split array, 2D search I/II, median of two arrays, peak II (stretch).
-
-**Solve (12):** at least Koko, ship, cows, books, kth missing, 2D I, median of two arrays. Cheatsheet families B and C until `can(x)` is automatic.
-
-**Exit:** given “minimize the maximum”, you write `can(mid)` without a similar problem open.
-
-### Week 3 — Recursion + backtracking
-
-This is the DFS engine for trees, graphs, and DP.
-
-**Watch:** Re 1–5 (playlist). Sheet: print all subsequences, combination sum I/II, subsets, subset sum, palindrome partition, N-Queens **or** sudoku (pick one hard).
-
-**Solve (12):** factorial/print 1..n style, reverse array via recursion, subsequences, combination sum, subsets, N-Queens, word search (grid DFS), generate parentheses.
-
-**Exit:** base case, choose/not-choose, undo on backtrack. You never lose track of “what is in the path.”
-
-### Week 4 — Binary trees (traversals → medium)
-
-**Watch:** L1–L8, L14–L18, L24, L26–L27 (skip L2/L3 language clones).
-
-**Solve (12):** pre/in/post recursive + iterative inorder, level order, height, balanced, diameter, max path sum, identical, right view, root-to-node path, LCA.
-
-**Exit:** DFS that **returns extra state** (height, max path).
-
-**Month 1 checkpoint:** 1 BS-on-answer + 1 backtracking + 1 tree DFS in 90 minutes.
-
----
-
-## Month 2 — Trees finish, then graphs (Weeks 5–8)
-
-### Week 5 — Trees hard + BST
-
-**Watch:** L19–L21, L34–L36, L38. BST L39–L47, L51.
-
-**Solve (12):** zig-zag, vertical or top/bottom view, construct from in+pre, serialize/deserialize, flatten (stretch), search/insert BST, ceil/floor, validate BST, kth in BST, LCA in BST, two-sum BST.
-
-**Exit:** inorder of a BST is sorted; construct tree from two traversals.
-
-### Week 6 — Graphs I — BFS / DFS / matrix
-
-**Watch:** G-1 to G-18 (skip G-2/G-3 language clone).
-
-**Solve (12):** graph representation, BFS, DFS, provinces, islands, flood fill, rotten oranges, 0/1 nearest, surrounded regions, cycle undirected (BFS or DFS), bipartite, distinct islands (stretch).
-
-**Exit:** visited[], queue vs recursion, “multi-source BFS.”
-
-### Week 7 — Graphs II — directed, topo, shortest
-
-**Watch:** G-19 to G-38 (skip Word Ladder II if behind).
-
-**Solve (12):** cycle directed, topo DFS, Kahn, course schedule, alien dictionary, DAG shortest path, unit-weight shortest, word ladder I, Dijkstra (array or grid), binary maze / min effort.
-
-**Exit:** indegree + queue; Dijkstra vs BFS (when weights are 1).
-
-### Week 8 — Graphs III — DSU + light greedy
-
-**Watch:** G-44–G-50. Optional G-54. Greedy only if time: jump I/II, N meetings.
-
-**Solve (10):** MST idea (Prim or Kruskal — one is enough), DSU template, number of provinces (DSU), network connected, accounts merge, islands II **or** stones. Jump game I.
-
-**Skip:** Bellman, Floyd, Tarjan, articulation, Word Ladder II.
-
-**Exit:** “BFS vs Dijkstra vs Union-Find” in one sentence each.
-
-**Month 2 checkpoint:** islands + course schedule + Dijkstra on a grid, no notes.
-
----
-
-## Month 3 — DP, then linear catch-up + mocks (Weeks 9–12)
-
-### Week 9 — DP 1D and grids
-
-**Watch:** DP 1–13 (stock I can wait).
-
-**Solve (12):** climb stairs, frog jump ± K, house robber I/II, ninja training, unique paths I/II, min path sum, triangle, falling path sum. Cherry pickup II only if ahead.
-
-**Exit:** memo → tabulation → rolling array for 1D.
-
-### Week 10 — DP knapsack / subset / coins
-
-**Watch:** DP 14–24.
-
-**Solve (12):** subset sum, partition equal, min subset difference, count subsets, 0/1 knapsack, unbounded knapsack, coin change (min coins + combinations), target sum, rod cutting.
-
-**Exit:** 0/1 vs unbounded (loop order).
-
-### Week 11 — DP strings, LIS, stocks
-
-**Watch:** DP 25–34, 36–40, 41–43. Skip DP 48–56 unless extra.
-
-**Solve (12):** LCS, longest common substring, palindromic subsequence, edit distance, wildcard (stretch), LIS (DP + n log n idea), stock I/II, stock with cooldown **or** fee (one).
-
-**Exit:** string DP `dp[i][j]`; LIS as “patience / tails” or classic DP.
-
-### Week 12 — Linear catch-up + mocks
-
-Google still asks these. One week, high yield only.
-
-**Arrays / hash (1–2 days):** two sum, Kadane, stock I (already), 3 sum, merge intervals, set matrix zero.
-
-**Window (1 day):** longest substring no repeat, min window, max consecutive 1s III.
-
-**Linked list (1 day):** reverse, cycle start, intersection, middle, palindrome.
-
-**Stack (1 day):** valid parentheses, NGE, trapping rain water **or** histogram.
-
-**Then:** 4–6 timed mocks (2 questions, 45 min, no notes). Redo the fail list from weeks 1–11.
-
-**Month 3 checkpoint:** 2 unseen mediums in 45 minutes, including at least one of {graph, DP, tree, BS-on-answer}.
-
----
-
-## Revision (all 12 weeks)
-
-- Fail list only (~40 problems).
-- Saturday: 2 problems from ≥14 days ago (always mix **this month’s hard topic**).
-- After Week 2: 15 min BS cheatsheet (families A/B/C).
-- After Week 8: 1 graph every weekend until the interview.
-- After Week 11: 1 DP every weekend until the interview.
-
----
-
-## If a week slips (cut in this order)
-
-1. DP 48–56 (MCM, balloons, rectangles)  
-2. Graph G-41–G-56 extras (Floyd, SCC, bridges)  
-3. Tree Morris / burn / complete-tree count  
-4. Greedy playlist  
-5. Word ladder II, LFU, cherry pickup II  
-
-**Never cut:** BS-on-answer, backtracking template, tree LCA/path-sum, graph BFS/DFS/topo/Dijkstra, house robber, knapsack, LCS.
-
-**Do not skip Week 12 linear catch-up** unless your mocks already include two-sum, window, and reverse-LL — those still show up in Google screens.
-
----
-
-## Parallel: embedded (do not merge into DSA days)
-
-| Track | Hours/week | Content |
+| | DSA | Embedded |
 |---|---|---|
-| DSA (this file) | 10–12 | BS, recursion, trees, graphs, DP + 2 screen problems |
-| Embedded | 6–8 | Your planned firmware set: C, bits in registers, rings, ISR vs task, memory, concurrency, one driver story |
+| Mon–Tue | Pattern + 2 problems | 1 coding topic: read 20 min, **code 90 min** |
+| Wed–Thu | Pattern + 2 problems | Finish that topic + 1 sub-variant |
+| Fri | 2 DSA from this week + **1 array/hash screen** | Recode yesterday’s API from blank file (30–45 min) |
+| Sat | 3 mixed DSA (1 old) + **1 bit/array screen** | Verbal **or** design: 45 min out-loud (from Week 6) |
+| Sun | **90 min timed, C++** (2 DSA) *or* **60 min timed C** (1 embedded API) — alternate | Review fail list |
 
-If the week is too full, **cut a DP/graph video**, not the embedded block and not the 2 screen problems.
-
-Total ~16–20 h/week for 12 weeks is enough for a Google embedded loop if both tracks stay honest. More hours should go to **mocks + C++**, not more playlists.
+If the week is too full: cut a graph/DP video, **not** the embedded recode and **not** the 2 DSA screen problems.
 
 ---
 
-## 12-week numbers
+## At a glance
 
-| | Target |
+| Week | DSA | Embedded (FINAL 120 merged) |
+|---:|---|---|
+| 1 | BS index search (A) | M001 memcpy/memmove · M004 bits |
+| 2 | BS on answer + 2D (B, C) | M003 endian/wire · M002 atoi · M023 macros |
+| 3 | Recursion + backtracking | **M006 ring/SPSC** (start) · M005 CRC |
+| 4 | Trees medium | **M006** finish · M011 MMIO/poll |
+| 5 | Trees hard + BST | M010 atomics/order · M007 IPC/mailbox |
+| 6 | Graphs BFS/DFS | M008 allocators · M009 locks/sem |
+| 7 | Graphs topo + shortest | M012 UART stack · M013 SPI |
+| 8 | Graphs DSU | M014 I2C · M015 GPIO/PWM/ADC |
+| 9 | DP 1D + grid | M018 software timers · M016 watchdog |
+| 10 | DP knapsack | M017 parser · M020 FSM · M019 reliability |
+| 11 | DP strings/LIS | M021 filter · M022 tests · verbal M026–M029 |
+| 12 | Linear DSA + mocks | Verbal M030–M036 · design M039–M044 · **M045 mock** |
+
+---
+
+## Month 1
+
+### Week 1
+
+**DSA:** BS-1 to BS-9 from the [cheatsheet](./binary%20search/CHEATSHEET.md) (exact, bounds, rotated, peak, single). ~12 problems. C++ recode: rotated search.
+
+**Embedded**
+
+- **M001** — `memcpy` / `memmove` / `memset` / secure wipe. Code overlap-safe memmove; explain compiler-elided memset.
+- **M004** — popcount, reverse bits, pow2, floor_log2. This *is* your bit screen for the week (skip a duplicate DSA bit problem).
+
+**Exit:** memmove direction; `n & (n-1)` for pow2.
+
+### Week 2
+
+**DSA:** Koko, ship, cows, books/split array, kth missing, 2D matrix I, median of two arrays. Invent `can(x)`.
+
+**Embedded**
+
+- **M003** — LE/BE helpers, packed wire struct, padding.
+- **M002** — safe atoi (overflow, sign, junk).
+- **M023** — container_of / intrusive list macros (read + small example).
+
+**Exit:** you can unpack a little-endian frame without `#pragma pack` as the only trick.
+
+### Week 3
+
+**DSA:** Recursion Re 1–5; subsequences, combination sum, subsets, N-Queens or sudoku, generate parentheses.
+
+**Embedded — highest-value coding week**
+
+- **M006** start — spare-slot ring, pow2 mask, ISR producer / task consumer. Compile `push`/`pop`/`count`.
+- **M005** — CRC-8 (bitwise); mention table-driven.
+
+**Exit:** empty vs full; why one spare slot **or** an explicit count, never mixed.
+
+### Week 4
+
+**DSA:** Tree traversals, height, balanced, diameter, max path sum, right view, LCA.
+
+**Embedded**
+
+- **M006** finish — overwrite policy, lock-free SPSC acquire/release, `push_n`/`pop_n` / contiguous DMA view.
+- **M011** — `read32`/`write32`/`rmw`, poll-with-timeout, `volatile` limits.
+
+**Month 1 checkpoint**
+
+- DSA: 1 BS-on-answer + 1 backtracking + 1 tree in 90 min (C++).
+- Embedded: blank-file SPSC ring + MMIO poll in 60 min (C).
+
+---
+
+## Month 2
+
+### Week 5
+
+**DSA:** Construct tree, serialize, BST validate/kth/LCA/two-sum.
+
+**Embedded**
+
+- **M010** — atomic counters, ABA sketch, acquire/release flag, false sharing pad.
+- **M007** — mailbox / doorbell / seqlock *or* ISR→task flag (pick one full implementation + talk the rest).
+
+**Sat verbal (start):** **M027** ISR rules (no malloc, no printf, defer work) — 20 min out loud.
+
+**Exit:** you can say which fields an ISR may touch.
+
+### Week 6
+
+**DSA:** Graph BFS/DFS, islands, rotten oranges, cycle undirected, bipartite.
+
+**Embedded**
+
+- **M008** — O(1) pool + ISR-safe variant; *sketch* first-fit free list (do not boil the ocean on buddy).
+- **M009** — spinlock + counting semaphore give-from-ISR.
+
+**Sat verbal:** **M026** volatile vs atomic vs barrier.
+
+**Exit:** pool vs heap; why malloc in ISR is wrong.
+
+### Week 7
+
+**DSA:** Directed cycle, topo, course schedule, Dijkstra, grid shortest path.
+
+**Embedded**
+
+- **M012** — UART poll → IRQ + rings. DMA as follow-up verbally if short on time.
+- **M013** — SPI blocking transfer + CS; IRQ/DMA as follow-up.
+
+**Sat verbal:** **M033** I2C vs SPI vs UART (addressing, CS, start/stop).
+
+**Exit:** one coherent UART RX path: ISR → ring → task.
+
+### Week 8
+
+**DSA:** DSU, network connected, jump game.
+
+**Embedded**
+
+- **M014** — I2C write/read/repeated start + stuck-bus recovery story.
+- **M015** — debounce **or** PWM/ADC wrapper (one coded, others verbal).
+
+**Sat verbal:** **M028** mutex vs spinlock vs semaphore vs lock-free.
+
+**Month 2 checkpoint**
+
+- DSA: islands + course schedule + Dijkstra grid.
+- Embedded: UART IRQ + pool alloc + “what can run in ISR?”
+
+---
+
+## Month 3
+
+### Week 9
+
+**DSA:** Climb stairs, frog, house robber, unique paths, min path sum.
+
+**Embedded**
+
+- **M018** — tick + software timers (list or wheel at a high level; code a simple sorted list wheel).
+- **M016** — watchdog pet + deadline monitor.
+
+**Sat verbal:** **M029** DMA + cache maintenance (clean/invalidate, when).
+
+**Exit:** who pets the watchdog; timer in ISR vs task.
+
+### Week 10
+
+**DSA:** Subset sum, knapsack, coin change, unbounded vs 0/1.
+
+**Embedded**
+
+- **M017** — frame + length + CRC parser (state machine).
+- **M020** — classic FSM table.
+- **M019** — backoff + fault FSM (can be the same code as M020 with extra states).
+
+**Sat verbal:** **M032** how you would debug a heisenbug / ISR-only fail.
+
+**Exit:** parser that does not block in ISR.
+
+### Week 11
+
+**DSA:** LCS, edit distance, LIS, stock I/II.
+
+**Embedded**
+
+- **M021** — EWMA (tiny).
+- **M022** — host test fakes for ring or parser.
+- **Verbal block:** M026–M029 recap; add **M030** (linker: .text/.data/.bss/stack/heap), **M031** (boot, MPU vs MMU, TrustZone at “what problem it solves” depth).
+
+**Sat design (45 min whiteboard):** **M040** ISR → ring → task → DMA pipeline. Numbers: ISR budget, ring size, backlog.
+
+**Exit:** one end-to-end data-path story with numbers.
+
+### Week 12 — Mocks (both tracks)
+
+**DSA linear catch-up (2–3 days, not the whole week):** two sum, Kadane, 3 sum, merge intervals, longest substring, reverse LL, cycle, NGE or rain water.
+
+**Embedded**
+
+- **M034** Linux platform driver / probe (verbal; enough for Android-adjacent L4, not a kernel maintainer interview).
+- **M035** security/safety (TOCTOU, stack canary, MPU regions) — verbal.
+- **M036** RT validation (rate monotonic intuition, priority inversion / inversion dodge).
+- **Design:** M039 driver stack, M041 timers/logging/watchdog platform, M042 boot/OTA/power, M043 dual-core or gateway (pick the one closest to your resume), M044 bring-up/test.
+- **M045** — full mock day: 45 min C coding (ring **or** UART **or** parser) + 45 min design (M040 or M043) + 30 min verbal (ISR + memory order).
+
+**DSA mocks:** ≥4 sets of 2 problems / 45 min in C++.
+
+---
+
+## Combined checkpoints
+
+| When | You should be able to |
 |---|---|
-| New problems | ~130 |
-| Fail-list | ~40 |
-| Sunday 90-min sets | 12 |
-| C++ recodes | ≥20 |
-| Full mocks | ≥6 in Week 12 (start two in Week 11 if possible) |
+| End week 4 | SPSC ring + MMIO poll from blank file; BS `can(x)` + tree DFS |
+| End week 8 | UART IRQ path + allocator story; graph BFS + Dijkstra |
+| End week 11 | Timer/watchdog + parser FSM; DP knapsack + LCS |
+| End week 12 | Two mixed DSA in 45 min; one embedded C API in 45 min; one design with numbers |
 
-Binary search, recursion, trees, graphs, and DP get **11 of 12 weeks**. Linear DSA gets a compressed Week 12 so the important topics are not delayed.
+---
+
+## Are the two lists enough for Google L4?
+
+**They are a strong, hire-shaped syllabus. They are not a guarantee of L4, and they are not complete by themselves.**
+
+### What is enough
+
+| Loop piece | These two lists |
+|---|---|
+| Firmware **coding** (C, rings, bits, MMIO, UART, pools, FSM) | **Yes** — M001–M023 is as complete as most candidates ever get |
+| Firmware **verbal** (ISR, atomics, DMA/cache, layout) | **Yes** — M026–M036 if you can teach them, not recite them |
+| Firmware **design** (data path, boot/OTA, dual-core) | **Good baseline** — M039–M044 |
+| **DSA coding** for Google | **Yes for patterns** if you *solve* the 12-week set (BS, trees, graphs, DP) — not if you only read notes |
+
+Google L4 embedded is usually: **2× DSA-style coding** + **embedded/systems** + **Googley / resume**. Your DSA plan + FINAL 120 merged maps onto the first two.
+
+### What is *not* in either list (L4 still asks this)
+
+1. **Depth under pressure** — L4 is “I’ve shipped this and I know the failure mode,” not “I memorized M006.” Interviewers twist the ring (overwrite vs drop, DMA wrap, 64-bit indexes).
+2. **Resume project** — 10 min architecture of *your* firmware with numbers (CPU, latency, RAM, what broke in production). Neither list replaces that.
+3. **Linux/Android kernel** — if the req is kernel/driver (GKI, device tree, kthread, sleep vs atomic context), M034 is only a trailer. Add one real driver read-through.
+4. **OS theory they still use** — scheduling / priority inversion / priority inheritance, page tables vs MPU, cache associativity. M029–M031 are sketches.
+5. **C++ for DSA onsites** — list is Python-first; L4 coding is C++. Timed C++ is mandatory.
+6. **Behavioral / leadership** — L4 is not L3+. Expect “disagreement, impact, debugging a cross-team failure.”
+7. **Unseen DSA** — A2Z subset + BS-1–27 covers patterns; Google will still give a problem you have not seen. Transfer (templates) matters more than covering DP 48–56.
+8. **The 300 firmware coding-round bank** on the other branch — optional extra reps, not required if M001–M023 are *coded* cold.
+
+### L4 bar vs L3
+
+| | L3 | L4 (your target) |
+|---|---|---|
+| Ring buffer | Works | ISR-safe, policy, memory order, test, DMA wrap |
+| Design | Block diagram | Numbers, failure, backpressure, what you cut |
+| DSA | Medium, hints OK | Medium-hard, little hints, clean C++ |
+
+The **lists** get you to the door. **Cold recodes + mocks + your project story** are what L4 scores.
+
+### Practical verdict
+
+- **Do both lists on this 12-week calendar** → you are **competitive for Google L4 embedded coding + firmware** if execution is honest (compile, timed, out-loud).
+- **Lists alone, read-only** → not enough for L4.
+- **Add three non-list items:** (1) one resume deep-dive, (2) C++ DSA mocks, (3) if the role is Android/kernel, one real Linux driver.
+
+You do **not** need to finish all 314 A2Z videos or all 300 extra firmware questions first.
